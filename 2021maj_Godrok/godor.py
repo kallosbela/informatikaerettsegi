@@ -3,7 +3,7 @@
 print("1. feladat")
 melyseg = []
 with open("melyseg.txt", "r") as f:
-    for mely in f.readlines():
+    for mely in f: 
         melyseg.append(int(mely))
     print("Adatok száma: ", len(melyseg))
 
@@ -50,6 +50,7 @@ print("A gödrök száma: ", len(godrok))
 # (Ha nem tudja meghatározni, használja a további részfeladatoknál a 7 és 22 
 # értéket, mint a kezdő és a végpont helyét) 
 print("6. feladat")
+print("a) feladat")
 if melyseg[tav-1] == 0:
     print("Az adott helyen nincs gödör.")
 else:
@@ -59,17 +60,40 @@ else:
     veg = tav
     while melyseg[veg-1] != 0:
         veg += 1
-    print("A gödör kezdete:", kezd+1, ", vége:", veg-1)
+    kezd += 1
+    veg -= 1
+    print("A gödör kezdete:", kezd, ", vége:", veg)
 # b)  a legmélyebb pontja felé mindkét irányból folyamatosan mélyül-e! Azaz a gödör 
 # az egyik szélétől monoton mélyül egy pontig, és onnantól monoton emelkedik a 
 # másik széléig. Az eredménytől függően írja ki a képernyőre a „Nem mélyül 
 # folyamatosan.” vagy a „Folyamatosan mélyül.” mondatot! 
- 
-
+print("b) feladat")
+godor = melyseg[kezd-1:veg]
+alja = max(godor) #legnagyobb elemnél lesz a legmélyebb pont
+index = godor.index(alja)
+folyamatosan_melyul = True
+for i in range(1, index+1):
+    if godor[i] < godor[i-1]:
+        folyamatosan_melyul = False
+for i in range(index+1, len(godor)):
+    if godor[i] > godor[i-1]:
+        folyamatosan_melyul = False
+if folyamatosan_melyul:
+    print("Folyamatosan mélyül.")
+else:
+    print("Nem mélyül folyamatosan.")
 # c)  mekkora a legnagyobb mélysége! A meghatározott értéket írja a képernyőre! 
+print("c) feladat")
+print("A legnagyobb mélysége", alja, "méter.")
 # d)  mekkora a térfogata, ha szélessége minden helyen 10 méternyi! A meghatározott 
 # értéket írja a képernyőre! 
+print("d) feladat")
+terfogat = sum(godor)*10
+print("A térfogata:", terfogat, "m^3.")
 # e)  a félkész csatorna esőben jelentős mennyiségű vizet fogad be. Egy gödör annyi 
 # vizet képes befogadni anélkül, hogy egy nagyobb szélvihar hatására se öntsön 
 # ki, amennyi esetén a víz felszíne legalább 1 méter mélyen van a külső felszínhez 
 # képest. Írja a képernyőre ezt a vízmennyiséget!
+print("e) feladat")
+vizmennyiseg = terfogat - (veg-(kezd-1))*10      #kezd=7, veg=22 -> 16*10=160
+print("A vízmennyiség:", vizmennyiseg, "m^3.")
