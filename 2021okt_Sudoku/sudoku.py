@@ -1,8 +1,8 @@
 # 1. Olvassa be egy fájl nevét, egy sor és egy oszlop sorszámát (1 és 9 közötti számot)! A későbbi feladatokat ezen értékek felhasználásával kell megoldania!
 print("1. feladat") 
-fajlnev = "konnyu.txt" #input("Fájl neve: ")
-sor = 2 #int(input("Sor sorszáma: "))
-oszlop = 3 #int(input("Oszlop sorszáma: "))
+fajlnev = input("Fájl neve: ")
+sor = int(input("Sor sorszáma: "))
+oszlop = int(input("Oszlop sorszáma: "))
 # 2. Az előző feladatban beolvasott névnek megfelelő fájl tartalmát olvassa be, és tárolja el a táblázat adatait! Ha ezt nem tudja megtenni, akkor használja forrásként a rendelkezésre álló állományok egyikét!
 print("2. feladat")
 with open(fajlnev, "r") as f:
