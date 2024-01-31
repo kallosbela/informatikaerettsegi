@@ -76,7 +76,7 @@ with open("halad" + vonat + ".txt", "w", encoding="utf8") as f:
 # A(z) 1. vonat a 6. állomáson állt. 
 # A(z) 2. vonat a 2. és a 3. állomás között járt.
 print("7. feladat")
-for iVonat in range(1,len(vonatok)-1):
+for iVonat in range(1,len(vonatok)+1):
     idok = [[sor[1], int(sor[2])*60+int(sor[3]), sor[4]] for sor in menetrend if sor[0] == str(iVonat)]
     vegallomasra_ert = idok[-1][1]<= idopont and idok[-1][0] == str(len(allomasok))
     if not vegallomasra_ert:
@@ -86,6 +86,3 @@ for iVonat in range(1,len(vonatok)-1):
                     print(f"A(z) {iVonat}. vonat a(z) {idok[i][0]}. állomáson állt.")
                 else:
                     print(f"A(z) {iVonat}. vonat a(z) {idok[i][0]}. és {idok[i+1][0]}. állomás között járt.")
-
-
-

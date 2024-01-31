@@ -88,5 +88,7 @@ def napokszama(e1,h1,n1,e2,h2,n2):
 # érvényességi idejét (éééé-hh-nn formátumban) szóközzel elválasztva!
 with open('figyelmeztetes.txt', 'w') as f:
   for utas in utasok:
-    if len(utas[4])>2 and (napokszama(int(utas[1][:4]),int(utas[1][4:6]),int(utas[1][6:8]),int(utas[4][:4]),int(utas[4][4:6]),int(utas[4][6:])) <= 3):
+    if len(utas[4])>2 and (0<= napokszama(int(utas[1][:4]),int(utas[1][4:6]),int(utas[1][6:8]),int(utas[4][:4]),int(utas[4][4:6]),int(utas[4][6:])) <= 3):
       print(f'{utas[2]} {utas[4][:4]}-{utas[4][4:6]}-{utas[4][6:8]}', file=f)
+
+
