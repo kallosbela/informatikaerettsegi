@@ -1,8 +1,8 @@
 # 1.  Olvassa  be  a  jel.txt  állomány  tartalmát,  tárolja  el  a  rögzített  jelek  adatait,  és  azok felhasználásával oldja meg a következő feladatokat! 
 jelek = []
 with open("jel.txt", "r") as f:
-    for line in f:
-        line = line.strip().split()
+    for sor in f:
+        line = list(map(int,sor.strip().split()))
         jelek.append(line)
 
 # 2.  Kérje be a felhasználótól egy jel sorszámát (a sorszámozás 1-től indul), és írja a képernyőre 
@@ -18,8 +18,8 @@ print(f"x={jelek[jel-1][3]} y={jelek[jel-1][4]}") # x=126 y=639
 # megfelelő  típusú  változót  is.  Ezt  a függvényt  később  használja  fel  legalább  egy  feladat 
 # megoldása során! 
 def eltelt(idopont1, idopont2):     #idopont1, idopont2: [óra, perc, másodperc]
-    idopont_1 = int(idopont1[0])*3600 + int(idopont1[1])*60 + int(idopont1[2])
-    idopont_2 = int(idopont2[0])*3600 + int(idopont2[1])*60 + int(idopont2[2])
+    idopont_1 = idopont1[0]*3600 + idopont1[1]*60 + idopont1[2]
+    idopont_2 = idopont2[0]*3600 + idopont2[1]*60 + idopont2[2]
     return idopont_2 - idopont_1
 
 # 4.  Adja meg, mennyi idő telt el az első és az utolsó észlelés között! Az időt óra:perc:mperc 
@@ -41,8 +41,8 @@ print(f"Időtartam: {ora}:{perc}:{mperc}") # 18:52:40
 # téglalapot, amelyből nem lépett ki a  jeladó! Adja meg a téglalap  bal alsó és jobb felső 
 # sarkának koordinátáit!
 print("5. feladat")
-x = [int(jel[3]) for jel in jelek]
-y = [int(jel[4]) for jel in jelek]
+x = [jel[3] for jel in jelek]
+y = [jel[4] for jel in jelek]
 print(f"Bal alsó: {min(x)} {min(y)}, jobb felső: {max(x)} {max(y)}") # Bal alsó: 4 639, jobb felső: 147 727 
 
 # 6.  Írja a képernyőre, hogy mennyi volt a jeladó elmozdulásainak összege! Úgy tekintjük, hogy 
@@ -53,7 +53,7 @@ print(f"Bal alsó: {min(x)} {min(y)}, jobb felső: {max(x)} {max(y)}") # Bal als
 print("6. feladat")
 elmozdulas = 0
 for i in range(len(jelek)-1):
-    elmozdulas += ((int(jelek[i][3])-int(jelek[i+1][3]))**2 + (int(jelek[i][4])-int(jelek[i+1][4]))**2)**0.5
+    elmozdulas += ((jelek[i][3]-jelek[i+1][3])**2 + (jelek[i][4]-jelek[i+1][4])**2)**0.5
 print(f"Elmozdulás: {elmozdulas:.3f}") # Elmozdulás: 2007.677
 
 # 7.  Írja a kimaradt.txt fájlba a kimaradt észlelésekkel kapcsolatos adatokat! A kimeneti 
@@ -66,12 +66,9 @@ print(f"Elmozdulás: {elmozdulas:.3f}") # Elmozdulás: 2007.677
 kimaradt = []
 for i in range(len(jelek)-1):
     kimaradt_ido, kimaradt_x, kimaradt_y, kimaradt_tav = 0, 0, 0, 0
-    if eltelt(jelek[i][0:3], jelek[i+1][0:3]) > 300:
-        kimaradt_ido = (eltelt(jelek[i][0:3], jelek[i+1][0:3])-1)//300
-    if abs(int(jelek[i][3])-int(jelek[i+1][3])) > 10:
-        kimaradt_x = (abs(int(jelek[i][3])-int(jelek[i+1][3]))-1)//10
-    if abs(int(jelek[i][4])-int(jelek[i+1][4])) > 10:
-        kimaradt_y = (abs(int(jelek[i][4])-int(jelek[i+1][4]))-1)//10
+    kimaradt_ido = (eltelt(jelek[i][0:3], jelek[i+1][0:3])-1)//300
+    kimaradt_x = (abs(jelek[i][3]-jelek[i+1][3])-1)//10
+    kimaradt_y = (abs(jelek[i][4]-jelek[i+1][4])-1)//10
     kimaradt_tav = max(kimaradt_x, kimaradt_y)
     if kimaradt_ido == 0 and kimaradt_tav == 0:
         continue
